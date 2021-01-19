@@ -23,22 +23,20 @@
 
 #define MAX_THREADS 32
 
-/* Arguments passed to the multithreading function, as only one argument is
-   accepted we must pass in a struct of all the args. */
+/* Arguments passed to the multithreaded function - as only one argument is   */
+/* accepted for POSIX threads we must pass in a struct of all the args.       */
 struct thread_args {
 	bool print_all;
 	char *username;
 	char **sites_list;
-	int num_sites;
 	int i_low;
 	int i_high;
 	int threadnum;
 };
 
-int csherlock(bool print_all, char *username, char **sites_list, int num_sites);
 void log_result(bool print_all, char *site,
 				char *username, bool result, char *url);
-void *multithread_csherlock(void *args);
+void *csherlock(void *args);
 
 int main(int argc, char *argv[]){
 
@@ -68,9 +66,51 @@ int main(int argc, char *argv[]){
 	/* read_csv() pulls each line into the lines array with the \n removed. */
 	char **lines = read_csv("sites.csv", &free_length, &num_lines); 
 
-	/* Start checking each username against each site */
+	/* Start checking each username in the arguments */
 	for (i = optind; i < argc; ++i){
-		csherlock(args.print_all, argv[i], lines, num_lines);
+		int divs = num_lines / MAX_THREADS;
+
+		/* Set up multithreading */
+		int j;
+		pthread_t threads[MAX_THREADS];
+		for (j=0; j<MAX_THREADS; ++j){
+			/* Multithreaded function takes one pointer argument, so we must  */
+			/* pass it a struct of all the arguments. Use malloc to ensure    */
+			/* that other threads will not touch the same data. The pointer   */
+			/* is freed in the called function.                               */ 
+			struct thread_args *t_data = malloc(sizeof(struct thread_args));
+
+			t_data->print_all = args.print_all;
+			t_data->username = argv[i];
+			t_data->sites_list = lines;
+			t_data->threadnum = j;
+			t_data->i_low = j * divs + 1; // +1 to skip the csv header line
+			t_data->i_high = (j * divs) + divs;
+
+			int rc;
+			rc = pthread_create(&threads[j], NULL, csherlock, t_data);
+			if (rc){
+				v_print("Failed to start thread %d\n", j);
+			}
+		}
+
+		/* Deal with the remaining sites (those not assigned to thread). */
+		/* In future these should be shared across existing threads.     */
+		struct thread_args *t_data = malloc(sizeof(struct thread_args));
+		t_data->print_all = args.print_all;
+		t_data->username = argv[i];
+		t_data->sites_list = lines;
+		t_data->threadnum = -1;
+		t_data->i_low = num_lines - num_lines % MAX_THREADS;
+		t_data->i_high = num_lines;
+
+		/* Make the web request */
+		csherlock(t_data);
+
+		for (j=0; j<MAX_THREADS; ++j){
+			pthread_join(threads[j], NULL);
+		}
+		pthread_exit(NULL);
 	}
 
 	/* Free the memory allocated by read_csv() */
@@ -79,71 +119,16 @@ int main(int argc, char *argv[]){
 	return 0;
 }
 
-int csherlock(bool print_all, char *username, char **sites_list, int num_sites){
-	/**************************************************************************/
-	/* This function sets up multithreading and will be moved to main()       */
-	/**************************************************************************/
-
-	int divs = num_sites / MAX_THREADS;
-
-	int i;
-	pthread_t threads[MAX_THREADS];
-	for (i=0; i<MAX_THREADS; ++i){
-		/* Multithreaded function takes one pointer argument, so we must
-		   pass it a struct of all the arguments. Use malloc to ensure
-		   that other threads will not touch the same data. */
-
-		/* This malloc is freed by the called function */
-		struct thread_args *t_data = malloc(sizeof(struct thread_args));
-
-		t_data->print_all = print_all;
-		t_data->username = username;
-		t_data->sites_list = sites_list;
-		t_data->num_sites = num_sites;
-		t_data->threadnum = i;
-		t_data->i_low = i * divs + 1; // +1 to skip the csv header line
-		t_data->i_high = (i * divs) + divs;
-
-		int rc;
-		rc = pthread_create(&threads[i], NULL, multithread_csherlock, t_data);
-		if (rc){
-			v_print("Failed to start thread %d\n", i);
-		}
-	}
-
-	/* Deal with the remaining sites (those not assigned to thread) in main. */
-	/* In future we should just distribute the remainder across the threads. */
-	struct thread_args *t_data = malloc(sizeof(struct thread_args));
-	t_data->print_all = print_all;
-	t_data->username = username;
-	t_data->sites_list = sites_list;
-	t_data->num_sites = num_sites;
-	t_data->threadnum = -1;
-	t_data->i_low = num_sites - num_sites % MAX_THREADS;
-	t_data->i_high = num_sites;
-
-	multithread_csherlock(t_data);
-
-	for (i=0; i<MAX_THREADS; ++i){
-		pthread_join(threads[i], NULL);
-	}
-	pthread_exit(NULL);
-
-	return 0;
-}
-
-void *multithread_csherlock(void *args){
+void *csherlock(void *args){
 
 	/* Get our struct back as individual variables */
 	struct thread_args t_data = *(struct thread_args*) args;
 	bool print_all = t_data.print_all;
 	char *username = t_data.username;
 	char **sites_list = t_data.sites_list;
-	int num_sites = t_data.num_sites;
 	int threadnum = t_data.threadnum;
 	int i_low = t_data.i_low;
 	int i_high = t_data.i_high;
-
 	free(args);
 
 	int i;
@@ -155,29 +140,11 @@ void *multithread_csherlock(void *args){
 	/* in the csv file. In this case, we skip the regex check.                */ 
 
 	for (i=i_low; i<i_high; ++i){
-		/* Parse the csv line so that each field becomes an element of a */
-		/* struct. We then build the request URL which replaces the '{}' */
-		/* wildcard in the URL with the username. If a probe URL exists, */
-		/* use that to build the request URL.                            */ 
-		struct csv_columns site_data = parse_csv(sites_list, i);
-		site_data.request_url = malloc(256);
-		if (site_data.request_url == NULL){
-			fprintf(stderr, "Out of memory\n");
-		}
-		
-		/* After the call to make_url, site_data.request_url will hold */
-		/* the new URL.                                                */
-		int fail;
-		if (strcmp(site_data.probe_url, "NONE") == 0){
-			fail = make_url(site_data.url, username, site_data.request_url);
-		} else {
-			fail = make_url(site_data.probe_url, username, site_data.request_url);
-		}
-		if (fail){
-			v_print("Invalid url on line %d\n", i);
-			continue;
-		}
 
+		/* Parse the csv line so that each field becomes an element of a */
+		/* struct.                                                       */                
+		struct csv_columns site_data = parse_csv(sites_list, i);
+		
 		/* Check the regex against username. */
 		bool regex_matched;
 		if (strcmp(site_data.regex_check, "NONE") != 0){
@@ -189,8 +156,28 @@ void *multithread_csherlock(void *args){
 			}
 		}
 
-		/* If the regex check passed (or there was no regex supplied) */
-		/* then we need to make an http request.                      */ 
+		/* After the call to make_url, site_data.request_url will hold */
+		/* the new URL. This is done by replacing the '{}' wildcard in */
+		/* the URL with the username.                                  */ 
+		site_data.request_url = malloc(256);
+		if (site_data.request_url == NULL){
+			fprintf(stderr, "Out of memory\n");
+		}
+
+		int fail;
+		if (strcmp(site_data.probe_url, "NONE") == 0){
+			fail = make_url(site_data.url, username, site_data.request_url);
+		} else {
+			fail = make_url(site_data.probe_url, username, 
+									site_data.request_url);
+		}
+		if (fail){
+			v_print("Invalid url on line %d, thread: %d\n", i, threadnum);
+			continue;
+		}
+
+		/* If the regex check passed (or if there was no regex supplied) */
+		/* then we need to make an http request.                         */ 
 		log_result(print_all,
 					site_data.site,
 					username,

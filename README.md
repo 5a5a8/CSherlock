@@ -31,12 +31,12 @@ There are four possible error cases - which one we check for depends on the erro
 libpcre2 is used for regular expression matching, while libcurl is used for making web requests.
 
 ## TODO
-- Move multithreading setup to main function
+- Change 'remainder' sites to be split across existing threads, instead of running in main thread
 - Write a proper cross-platform makefile
 - Improve false positive rate (i.e. finish implementation of get_request function)
 - Complete documentation
 - Change instances of strcpy (and similar) to safer alternatives
-- Fix bug where URL is occasionally read as an empty string
+- Fix bug where URL is occasionally read as an empty string leading to invalid URL error
 - Add licencing and file information to top of files
 - Add proper verbose printing for verbose mode
 - Improve display of output

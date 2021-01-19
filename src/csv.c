@@ -2,14 +2,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "verbose.h"
 
 char **read_csv(char *csv_filename, int *free_length, int *lines_length){
 	/**************************************************************************/
 	/*   csv_filename - The name of the csv file which will be opened         */  
 	/*   free_length  - parameter will be modified by this function           */
-	/*   				 and set to the length of this functions return value */
+	/*                   and set to the length of this functions return value */
 	/*   lines_length - Parameter will be modified by this function           */
-	/*   				 and set to the number of lines read from the csv     */
+	/*                   and set to the number of lines read from the csv     */
 	/*   return value - Pointer to an array of char* where each value in the  */
 	/*                   array points to a line read from the csv             */ 
 	/**************************************************************************/
@@ -143,7 +144,7 @@ int make_url(char *url, char *username, char *new_url){
 	/* Copy up to the opening brace, if we reach null byte, url is bad */
 	for (i=0; url[i] != '{'; ++i){
 		if (url[i] == '\0'){
-			fprintf(stderr, "URL %s is not valid, no open brace.\n", url);
+			v_print("URL %s is not valid, no open brace.\n", url);
 			return 1;
 		}
 		new_url[i] = url[i];
@@ -152,7 +153,7 @@ int make_url(char *url, char *username, char *new_url){
 
 	/* Check for close brace */
 	if (url[i+1] != '}'){
-		fprintf(stderr, "URL %s: No close brace after opening brace.\n", url);
+		v_print("URL %s: No close brace after opening brace.\n", url);
 		return 1;
 	}
 
