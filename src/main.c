@@ -159,7 +159,7 @@ void *csherlock(void *args){
 		/* After the call to make_url, site_data.request_url will hold */
 		/* the new URL. This is done by replacing the '{}' wildcard in */
 		/* the URL with the username.                                  */ 
-		site_data.request_url = malloc(256);
+		site_data.request_url = malloc(MAX_FIELD_LEN);
 		if (site_data.request_url == NULL){
 			fprintf(stderr, "Out of memory\n");
 		}
@@ -193,7 +193,7 @@ void *csherlock(void *args){
 void log_result(bool print_all, char *site,
 				char *username, bool result, char *url){
 
-	char new_url[256];
+	char new_url[MAX_FIELD_LEN];
 	make_url(url, username, new_url);
 
 	if (result){

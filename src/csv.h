@@ -1,20 +1,23 @@
 #ifndef FILE_CSV_SEEN
 #define FILE_CSV_SEEN
 
+#define MAX_LINE_LEN 1024
+#define MAX_FIELD_LEN 256 
+
 struct csv_columns {
-	char site[256];
-	char error_type[256];
-	char error_msg[256];
-	char regex_check[256];
-	char url[256];
-	char url_main[256];
-	char probe_url[256];
-	char user_claimed[256];
-	char user_unclaimed[256];
-	char error_url[256];
-	char no_period[256];
-	char headers[256];
-	char request_head_only[256];
+	char site[MAX_FIELD_LEN];
+	char error_type[MAX_FIELD_LEN];
+	char error_msg[MAX_FIELD_LEN];
+	char regex_check[MAX_FIELD_LEN];
+	char url[MAX_FIELD_LEN];
+	char url_main[MAX_FIELD_LEN];
+	char probe_url[MAX_FIELD_LEN];
+	char user_claimed[MAX_FIELD_LEN];
+	char user_unclaimed[MAX_FIELD_LEN];
+	char error_url[MAX_FIELD_LEN];
+	char no_period[MAX_FIELD_LEN];
+	char headers[MAX_FIELD_LEN];
+	char request_head_only[MAX_FIELD_LEN];
 	
 	char *request_url;
 };

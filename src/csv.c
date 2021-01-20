@@ -16,7 +16,7 @@ char **read_csv(char *csv_filename, int *free_length, int *lines_length){
 	/**************************************************************************/
 
 	/* Initial allocation for storing the file in memory */
-	int max_line_length = 1024;
+	int max_line_length = MAX_LINE_LEN;
 	int allocated_lines = 128;
 	int allocation_inc = 128;
 
@@ -95,8 +95,8 @@ struct csv_columns parse_csv(char **lines, int index){
 
 	/* Avoid modifying the original line, or we get problems when    */
 	/* the user passes multiple usernames as command-line arguments. */
-	char linecpy_buffer[1024];
-	strcpy(linecpy_buffer, lines[index]);
+	char linecpy_buffer[MAX_LINE_LEN];
+	snprintf(linecpy_buffer, MAX_LINE_LEN, "%s", lines[index]);
 
 
 	/* Get up to the first delimiter: We use ";" for delim but   */
@@ -107,26 +107,26 @@ struct csv_columns parse_csv(char **lines, int index){
 	
 	/* Get the remaining fields */
 	int i;
-	char csv_array[13][256];
+	char csv_array[13][MAX_FIELD_LEN];
 	for (i=0; token != NULL && i<13; ++i){
-		strcpy(csv_array[i], token);
+		snprintf(csv_array[i], MAX_FIELD_LEN, "%s", token);
 		token = strtok(NULL, csv_delim);
 	}
 
-	//TODO convert to strNcpy
-	strcpy(csv_line_parsed.site, csv_array[0]);
-	strcpy(csv_line_parsed.error_type, csv_array[1]);
-	strcpy(csv_line_parsed.error_msg, csv_array[2]);
-	strcpy(csv_line_parsed.regex_check, csv_array[3]);
-	strcpy(csv_line_parsed.url, csv_array[4]);
-	strcpy(csv_line_parsed.url_main, csv_array[5]);
-	strcpy(csv_line_parsed.probe_url, csv_array[6]);
-	strcpy(csv_line_parsed.user_claimed, csv_array[7]);
-	strcpy(csv_line_parsed.user_unclaimed, csv_array[8]);
-	strcpy(csv_line_parsed.error_url, csv_array[9]);
-	strcpy(csv_line_parsed.no_period, csv_array[10]);
-	strcpy(csv_line_parsed.headers, csv_array[11]);
-	strcpy(csv_line_parsed.request_head_only, csv_array[12]);
+	snprintf(csv_line_parsed.site, MAX_FIELD_LEN, "%s", csv_array[0]);
+	snprintf(csv_line_parsed.error_type, MAX_FIELD_LEN, "%s", csv_array[1]);
+	snprintf(csv_line_parsed.error_msg, MAX_FIELD_LEN, "%s",  csv_array[2]);
+	snprintf(csv_line_parsed.regex_check, MAX_FIELD_LEN, "%s", csv_array[3]);
+	snprintf(csv_line_parsed.url, MAX_FIELD_LEN, "%s", csv_array[4]);
+	snprintf(csv_line_parsed.url_main, MAX_FIELD_LEN, "%s", csv_array[5]);
+	snprintf(csv_line_parsed.probe_url, MAX_FIELD_LEN, "%s", csv_array[6]);
+	snprintf(csv_line_parsed.user_claimed, MAX_FIELD_LEN, "%s", csv_array[7]);
+	snprintf(csv_line_parsed.user_unclaimed, MAX_FIELD_LEN, "%s", csv_array[8]);
+	snprintf(csv_line_parsed.error_url, MAX_FIELD_LEN, "%s", csv_array[9]);
+	snprintf(csv_line_parsed.no_period, MAX_FIELD_LEN, "%s", csv_array[10]);
+	snprintf(csv_line_parsed.headers, MAX_FIELD_LEN, "%s", csv_array[11]);
+	snprintf(csv_line_parsed.request_head_only, MAX_FIELD_LEN, "%s",
+														csv_array[12]);
 
 	return csv_line_parsed;
 }
@@ -158,7 +158,7 @@ int make_url(char *url, char *username, char *new_url){
 	}
 
 	/* Append the username */
-	strcat(new_url, username);
+	strncat(new_url, username, MAX_FIELD_LEN-1);
 
 	/* Add the rest of the url and the null-byte */
 	i += 2;
