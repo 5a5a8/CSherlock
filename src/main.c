@@ -69,10 +69,12 @@ int main(int argc, char *argv[]){
 	/* Start checking each username in the arguments */
 	for (i = optind; i < argc; ++i){
 		int divs = num_lines / MAX_THREADS;
+		int remaining_sites = num_lines % MAX_THREADS;
 
 		/* Set up multithreading */
-		int j;
 		pthread_t threads[MAX_THREADS];
+		int prev_i_high = 1;
+		int j;
 		for (j=0; j<MAX_THREADS; ++j){
 			/* Multithreaded function takes one pointer argument, so we must  */
 			/* pass it a struct of all the arguments. Use malloc to ensure    */
@@ -84,8 +86,18 @@ int main(int argc, char *argv[]){
 			t_data->username = argv[i];
 			t_data->sites_list = lines;
 			t_data->threadnum = j;
-			t_data->i_low = j * divs + 1; // +1 to skip the csv header line
-			t_data->i_high = (j * divs) + divs;
+			t_data->i_low = prev_i_high;
+			t_data->i_high = (t_data->i_low) + divs;
+
+			/* Assign the left over csv lines to each thread */
+			if (t_data->i_high > num_lines){
+				t_data->i_high = num_lines;
+			}
+			if (remaining_sites){
+				++(t_data->i_high);
+				--remaining_sites;
+			}
+			prev_i_high = t_data->i_high;
 
 			int rc;
 			rc = pthread_create(&threads[j], NULL, csherlock, t_data);
@@ -93,19 +105,6 @@ int main(int argc, char *argv[]){
 				v_print("Failed to start thread %d\n", j);
 			}
 		}
-
-		/* Deal with the remaining sites (those not assigned to thread). */
-		/* In future these should be shared across existing threads.     */
-		struct thread_args *t_data = malloc(sizeof(struct thread_args));
-		t_data->print_all = args.print_all;
-		t_data->username = argv[i];
-		t_data->sites_list = lines;
-		t_data->threadnum = -1;
-		t_data->i_low = num_lines - num_lines % MAX_THREADS;
-		t_data->i_high = num_lines;
-
-		/* Make the web request */
-		csherlock(t_data);
 
 		for (j=0; j<MAX_THREADS; ++j){
 			pthread_join(threads[j], NULL);
