@@ -57,14 +57,14 @@ int main(int argc, char *argv[]){
 	}
 
 	/* We now read and parse the csv file containing the list of sites. */
-	/* the csv functions are defined in csv.c and csv.h.                */ 
+	/* the csv functions are defined in csv.c and csv.h.                */
 	/* Memory allocation is dynamic so we need to keep track of it.     */
 	int i;
 	int free_length;	//how much memory we need to free
 	int num_lines;		//number of lines read from the csv
 
 	/* read_csv() pulls each line into the lines array with the \n removed. */
-	char **lines = read_csv("sites.csv", &free_length, &num_lines); 
+	char **lines = read_csv("sites.csv", &free_length, &num_lines);
 
 	/* Start checking each username in the arguments */
 	for (i = optind; i < argc; ++i){
@@ -79,7 +79,7 @@ int main(int argc, char *argv[]){
 			/* Multithreaded function takes one pointer argument, so we must  */
 			/* pass it a struct of all the arguments. Use malloc to ensure    */
 			/* that other threads will not touch the same data. The pointer   */
-			/* is freed in the called function.                               */ 
+			/* is freed in the called function.                               */
 			struct thread_args *t_data = malloc(sizeof(struct thread_args));
 
 			t_data->print_all = args.print_all;
@@ -106,13 +106,14 @@ int main(int argc, char *argv[]){
 			}
 		}
 
-		for (j=0; j<MAX_THREADS; ++j){
-			pthread_join(threads[j], NULL);
+		int k;
+		for (k=0; k<MAX_THREADS; ++k){
+			pthread_join(threads[k], NULL);
 		}
-		pthread_exit(NULL);
 	}
 
 	/* Free the memory allocated by read_csv() */
+	v_print("Freeing memory allocated for csv...\n");
 	free_csv_memory(lines, free_length);
 
 	return 0;
@@ -136,14 +137,14 @@ void *csherlock(void *args){
 	/* the username, then it's an invalid username for the site, so we know   */
 	/* that it does not exist on the site, avoiding the need for an http      */
 	/* request. If there is no regex for the site, 'NONE' should be the value */
-	/* in the csv file. In this case, we skip the regex check.                */ 
+	/* in the csv file. In this case, we skip the regex check.                */
 
 	for (i=i_low; i<i_high; ++i){
 
 		/* Parse the csv line so that each field becomes an element of a */
-		/* struct.                                                       */                
+		/* struct.                                                       */
 		struct csv_columns site_data = parse_csv(sites_list, i);
-		
+
 		/* Check the regex against username. */
 		bool regex_matched;
 		if (strcmp(site_data.regex_check, "NONE") != 0){
@@ -157,7 +158,7 @@ void *csherlock(void *args){
 
 		/* After the call to make_url, site_data.request_url will hold */
 		/* the new URL. This is done by replacing the '{}' wildcard in */
-		/* the URL with the username.                                  */ 
+		/* the URL with the username.                                  */
 		site_data.request_url = malloc(MAX_FIELD_LEN);
 		if (site_data.request_url == NULL){
 			fprintf(stderr, "Out of memory\n");
@@ -167,7 +168,7 @@ void *csherlock(void *args){
 		if (strcmp(site_data.probe_url, "NONE") == 0){
 			fail = make_url(site_data.url, username, site_data.request_url);
 		} else {
-			fail = make_url(site_data.probe_url, username, 
+			fail = make_url(site_data.probe_url, username,
 									site_data.request_url);
 		}
 		if (fail){
@@ -176,7 +177,7 @@ void *csherlock(void *args){
 		}
 
 		/* If the regex check passed (or if there was no regex supplied) */
-		/* then we need to make an http request.                         */ 
+		/* then we need to make an http request.                         */
 		log_result(print_all,
 					site_data.site,
 					username,

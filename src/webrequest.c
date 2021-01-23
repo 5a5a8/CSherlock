@@ -13,14 +13,16 @@ bool get_request(struct csv_columns site_data){
 	CURL *curl = curl_easy_init();
 	CURLcode result;
 	curl_easy_setopt(curl, CURLOPT_URL, site_data.request_url);
+	curl_easy_setopt(curl, CURLOPT_TIMEOUT, 10L);
+  curl_easy_setopt(curl, CURLOPT_CONNECTTIMEOUT, 3L);
 
 	/* Holds the response body in case we want to save it. */
 	struct web_response response;
 	init_string(&response);
 
 
-	/* Some sites (e.g. Facebook) return 'Unsupported Browser' if we don't
-	   set the User Agent to some real system */
+	/* Some sites (e.g. Facebook) return 'Unsupported Browser' if we don't */
+	/* set the User Agent to some real system.                             */
 	struct curl_slist *list = NULL;
 	char *head = "User-Agent: Mozilla/5.0 "
 				"(Macintosh; Intel Mac OS X 10.12; rv:55.0) "
