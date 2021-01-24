@@ -1,5 +1,9 @@
 # CSherlock
 
+<p align="center">
+<img src="./demo.gif"/>
+</p>
+
 ## Introduction
 
 CSherlock is an implementation of [Sherlock](https://github.com/sherlock-project/sherlock) written in the C programming language.
