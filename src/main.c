@@ -24,6 +24,8 @@
 #include "webrequest.h"
 
 #define MAX_THREADS 32
+#define GREEN(string) "\x1b[32m" string "\x1b[0m"
+#define RED(string) "\x1b[31m" string "\x1b[0m"
 
 /* Arguments passed to the multithreaded function - as only one argument is   */
 /* accepted for POSIX threads we must pass in a struct of all the args.       */
@@ -204,8 +206,8 @@ void log_result(bool print_all, char *site,
 	make_url(url, username, new_url);
 
 	if (result){
-		printf("User %s found on %s at: %s\n", username, site, new_url);
+		printf("[+] " GREEN("%s") ": %s\n", site, new_url);
 	} else if (print_all){
-		printf("User %s not found on %s\n", username, site);
+		printf("[-] " RED("%s") ": Not found: %s\n", site, username);
 	}
 }
