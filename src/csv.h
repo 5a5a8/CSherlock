@@ -1,8 +1,12 @@
 #ifndef FILE_CSV_SEEN
 #define FILE_CSV_SEEN
 
+#include <pthread.h>
+
 #define MAX_LINE_LEN 1024
 #define MAX_FIELD_LEN 256 
+
+pthread_mutex_t lock;
 
 struct csv_columns {
 	char site[MAX_FIELD_LEN];

@@ -66,6 +66,11 @@ int main(int argc, char *argv[]){
 	/* read_csv() pulls each line into the lines array with the \n removed. */
 	char **lines = read_csv("sites.csv", &free_length, &num_lines);
 
+	/* Initialise mutex lock on csv parser */
+	if (pthread_mutex_init(&lock, NULL)){
+		v_print("Failed to initialise mutex\n");
+	}
+
 	/* Start checking each username in the arguments */
 	for (i = optind; i < argc; ++i){
 		int divs = num_lines / MAX_THREADS;

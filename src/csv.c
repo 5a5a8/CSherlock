@@ -1,4 +1,5 @@
 #include "csv.h"
+#include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -6,13 +7,13 @@
 
 char **read_csv(char *csv_filename, int *free_length, int *lines_length){
 	/**************************************************************************/
-	/*   csv_filename - The name of the csv file which will be opened         */  
+	/*   csv_filename - The name of the csv file which will be opened         */
 	/*   free_length  - parameter will be modified by this function           */
 	/*                   and set to the length of this functions return value */
 	/*   lines_length - Parameter will be modified by this function           */
 	/*                   and set to the number of lines read from the csv     */
 	/*   return value - Pointer to an array of char* where each value in the  */
-	/*                   array points to a line read from the csv             */ 
+	/*                   array points to a line read from the csv             */
 	/**************************************************************************/
 
 	/* Initial allocation for storing the file in memory */
@@ -79,7 +80,7 @@ char **read_csv(char *csv_filename, int *free_length, int *lines_length){
 void free_csv_memory(char **lines, int free_length){
 	/**************************************************************************/
 	/* lines       - array of string which was the return value of read_csv() */
-	/* free_length - number of memory units which must be freed               */      
+	/* free_length - number of memory units which must be freed               */
 	/**************************************************************************/
 
 	int i;
@@ -90,6 +91,8 @@ void free_csv_memory(char **lines, int free_length){
 }
 
 struct csv_columns parse_csv(char **lines, int index){
+
+	pthread_mutex_lock(&lock);
 
 	struct csv_columns csv_line_parsed;
 
@@ -104,7 +107,7 @@ struct csv_columns parse_csv(char **lines, int index){
 	char csv_delim[] = ";";
 	char *token = strtok(linecpy_buffer, csv_delim);
 
-	
+
 	/* Get the remaining fields */
 	int i;
 	char csv_array[13][MAX_FIELD_LEN];
@@ -128,6 +131,7 @@ struct csv_columns parse_csv(char **lines, int index){
 	snprintf(csv_line_parsed.request_head_only, MAX_FIELD_LEN, "%s",
 														csv_array[12]);
 
+	pthread_mutex_unlock(&lock);
 	return csv_line_parsed;
 }
 
@@ -136,7 +140,7 @@ int make_url(char *url, char *username, char *new_url){
 	/* The URL in the CSV file is like https://example.com/{}, where the {}   */
 	/* should be replaced by a username. This function simply makes that      */
 	/* replacement. We copy the part before, concatenate the username, and    */
-	/* then concatenate the part after the closing brace.                     */ 
+	/* then concatenate the part after the closing brace.                     */
 	/**************************************************************************/
 
 	int i;
