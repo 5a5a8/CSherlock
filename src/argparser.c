@@ -1,3 +1,10 @@
+/******************************************************************************/
+/*    FILE: argparser.c                                                       */
+/*    AUTHOR: 5a5a8 <5a5a8@protonmail.com>                                    */
+/*    PURPOSE: Parse command line arguments                                   */ 
+/*    LICENSE: GNU General Public Licence v3.0: see '../LICENCE' for more.    */
+/******************************************************************************/
+
 #include "argparser.h"
 #include "help.h"
 #include <stdbool.h>

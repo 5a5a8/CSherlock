@@ -1,3 +1,10 @@
+/******************************************************************************/
+/*    FILE: help.c                                                            */
+/*    AUTHOR: 5a5a8 <5a5a8@protonmail.com>                                    */
+/*    PURPOSE: Print help message to the screen.                              */
+/*    LICENSE: GNU General Public Licence v3.0: see '../LICENCE' for more.    */
+/******************************************************************************/
+
 #include "help.h"
 #include <stdio.h>
 

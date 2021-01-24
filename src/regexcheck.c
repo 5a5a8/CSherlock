@@ -1,3 +1,10 @@
+/******************************************************************************/
+/*    FILE: regexcheck.c                                                      */
+/*    AUTHOR: 5a5a8 <5a5a8@protonmail.com>                                    */
+/*    PURPOSE: Provide regular expression matching with libpcre2.             */
+/*    LICENSE: GNU General Public Licence v3.0: see '../LICENCE' for more.    */
+/******************************************************************************/
+
 #include "regexcheck.h"
 #include <pcre2.h>
 #include <stdbool.h>

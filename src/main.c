@@ -1,11 +1,13 @@
 /******************************************************************************/
-/* CSherlock: Find usernames across social networks.                          */
+/*    CSherlock: Find usernames across social networks.                       */
 /*                                                                            */
-/* This is a C rewrite of the Sherlock project:                               */
-/* https://github.com/sherlock-project/sherlock                               */
+/*    This is a C rewrite of the Sherlock project:                            */
+/*    https://github.com/sherlock-project/sherlock                            */
 /*                                                                            */
-/* This rewrite was created by Github user 5a5a8.                             */
-/* 5a5a8@protonmail.com                                                       */
+/*    FILE: main.c                                                            */
+/*    AUTHOR: 5a5a8 <5a5a8@protonmail.com>                                    */
+/*    PURPOSE: Main file of CSherlock project.                                */
+/*    LICENSE: GNU General Public Licence v3.0: see '../LICENCE' for more.    */
 /******************************************************************************/
 
 #include "argparser.h"

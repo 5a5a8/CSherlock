@@ -1,3 +1,10 @@
+/******************************************************************************/
+/*    FILE: webrequest.c                                                      */
+/*    AUTHOR: 5a5a8 <5a5a8@protonmail.com>                                    */
+/*    PURPOSE: Provide web requests using libcurl to check usernames.         */
+/*    LICENSE: GNU General Public Licence v3.0: see '../LICENCE' for more.    */
+/******************************************************************************/
+
 #include "webrequest.h"
 #include "csv.h"
 #include <curl/curl.h>

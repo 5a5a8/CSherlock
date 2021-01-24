@@ -1,3 +1,10 @@
+/******************************************************************************/
+/*    FILE: csv.c                                                             */
+/*    AUTHOR: 5a5a8 <5a5a8@protonmail.com>                                    */
+/*    PURPOSE: Provide functions for reading and parsing sites.csv file       */
+/*    LICENSE: GNU General Public Licence v3.0: see '../LICENCE' for more.    */
+/******************************************************************************/
+
 #include "csv.h"
 #include <pthread.h>
 #include <stdio.h>

@@ -1,3 +1,10 @@
+/******************************************************************************/
+/*    FILE: csv.h                                                             */
+/*    AUTHOR: 5a5a8 <5a5a8@protonmail.com>                                    */
+/*    PURPOSE: Provide functions for reading and parsing sites.csv file       */
+/*    LICENSE: GNU General Public Licence v3.0: see '../LICENCE' for more.    */
+/******************************************************************************/
+
 #ifndef FILE_CSV_SEEN
 #define FILE_CSV_SEEN
 
