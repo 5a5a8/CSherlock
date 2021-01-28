@@ -17,6 +17,7 @@ struct cmd_args {
 	bool version;
 	bool print_all;
 	bool verbose;
+	bool write_csv;
 };
 
 struct cmd_args argparser(int argc, char **argv);

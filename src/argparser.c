@@ -21,6 +21,7 @@ struct cmd_args argparser(int argc, char **argv){
 	args.version = false;
 	args.print_all = false;
 	args.verbose = false;
+	args.write_csv = false;
 
 	/* Often users will just do --help straight away */
 	/* or run the program with no args.              */
@@ -29,6 +30,7 @@ struct cmd_args argparser(int argc, char **argv){
 		exit(EXIT_SUCCESS);
 	} else if (argc == 1){
 		printf("Usage: %s [-%s] [usernames]\n", argv[0], ARGS);
+
 		printf("Use --help for more info\n");
 		exit(EXIT_SUCCESS);
 	}
@@ -36,7 +38,7 @@ struct cmd_args argparser(int argc, char **argv){
 	/* We set each variable as per user's arguments and     */
 	/* avoid calling any functions until we parse all args. */
 	int opt;
-	while ((opt = getopt(argc, argv, "hvVp")) != -1){
+	while ((opt = getopt(argc, argv, "hvVpc")) != -1){
 		switch (opt){
 			case 'h':
 				args.help = true;
@@ -49,6 +51,9 @@ struct cmd_args argparser(int argc, char **argv){
 				break;
 			case 'p':
 				args.print_all = true;
+				break;
+			case 'c':
+				args.write_csv = true;
 				break;
 			default:
 				fprintf(stderr, "Usage: %s [-%s] [usernames]\n", argv[0], ARGS);

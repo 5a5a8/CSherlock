@@ -13,7 +13,8 @@
 #define MAX_LINE_LEN 1024
 #define MAX_FIELD_LEN 256 
 
-pthread_mutex_t lock;
+pthread_mutex_t infile_lock;
+pthread_mutex_t outfile_lock;
 
 struct csv_columns {
 	char site[MAX_FIELD_LEN];
@@ -37,5 +38,6 @@ char **read_csv(char *csv_filename, int *free_length, int *lines_length);
 void free_csv_memory(char **lines, int free_length);
 struct csv_columns parse_csv(char **lines, int index);
 int make_url(char *url, char *username, char *new_url);
+void write_csv_result(char *filename, char *line);
 
 #endif

@@ -24,4 +24,5 @@ void print_help(char *program_name){
 	printf("  -V\t\tDisplay version information and exit.\n");
 	printf("  -v\t\tDisplay extra debug info and metrics.\n");
 	printf("  -p\t\tPrint all sites, including where user not found.\n");
+	printf("  -c\t\tCreate a 'username.csv' file of the result\n");
 }

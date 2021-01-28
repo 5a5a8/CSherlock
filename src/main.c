@@ -31,6 +31,7 @@
 /* accepted for POSIX threads we must pass in a struct of all the args.       */
 struct thread_args {
 	bool print_all;
+	bool write_csv;
 	char *username;
 	char **sites_list;
 	int i_low;
@@ -38,7 +39,7 @@ struct thread_args {
 	int threadnum;
 };
 
-void log_result(bool print_all, char *site,
+void log_result(bool print_all, bool write_csv, char *site,
 				char *username, bool result, char *url);
 void *csherlock(void *args);
 
@@ -70,13 +71,20 @@ int main(int argc, char *argv[]){
 	/* read_csv() pulls each line into the lines array with the \n removed. */
 	char **lines = read_csv("sites.csv", &free_length, &num_lines);
 
-	/* Initialise mutex lock on csv parser */
-	if (pthread_mutex_init(&lock, NULL)){
-		v_print("Failed to initialise mutex\n");
+	/* Initialise mutex lock on csv parser and csv writer */
+	if (pthread_mutex_init(&infile_lock, NULL)){
+		v_print("Failed to initialise mutex on infile\n");
+	}
+	if (args.write_csv){
+		if (pthread_mutex_init(&outfile_lock, NULL)){
+			v_print("Failed to initialise mutex on outfile\n");
+		}
 	}
 
 	/* Start checking each username in the arguments */
 	for (i = optind; i < argc; ++i){
+		printf("Checking username %s on...\n\n", argv[i]);
+
 		int divs = num_lines / MAX_THREADS;
 		int remaining_sites = num_lines % MAX_THREADS;
 
@@ -92,6 +100,7 @@ int main(int argc, char *argv[]){
 			struct thread_args *t_data = malloc(sizeof(struct thread_args));
 
 			t_data->print_all = args.print_all;
+			t_data->write_csv = args.write_csv;
 			t_data->username = argv[i];
 			t_data->sites_list = lines;
 			t_data->threadnum = j;
@@ -133,6 +142,7 @@ void *csherlock(void *args){
 	/* Get our struct back as individual variables */
 	struct thread_args t_data = *(struct thread_args*) args;
 	bool print_all = t_data.print_all;
+	bool write_csv = t_data.write_csv;
 	char *username = t_data.username;
 	char **sites_list = t_data.sites_list;
 	int threadnum = t_data.threadnum;
@@ -159,7 +169,7 @@ void *csherlock(void *args){
 		if (strcmp(site_data.regex_check, "NONE") != 0){
 			regex_matched = RE_check_regex(site_data.regex_check, username);
 			if (!regex_matched){
-				log_result(print_all, site_data.site,
+				log_result(print_all, write_csv, site_data.site,
 							username, false, site_data.url);
 				continue;
 			}
@@ -188,6 +198,7 @@ void *csherlock(void *args){
 		/* If the regex check passed (or if there was no regex supplied) */
 		/* then we need to make an http request.                         */
 		log_result(print_all,
+					write_csv,
 					site_data.site,
 					username,
 					get_request(site_data), //make the request
@@ -199,7 +210,7 @@ void *csherlock(void *args){
 	return NULL;
 }
 
-void log_result(bool print_all, char *site,
+void log_result(bool print_all, bool write_csv, char *site,
 				char *username, bool result, char *url){
 
 	char new_url[MAX_FIELD_LEN];
@@ -207,6 +218,12 @@ void log_result(bool print_all, char *site,
 
 	if (result){
 		printf("[+] " GREEN("%s") ": %s\n", site, new_url);
+		if (write_csv){
+			char outfile_name[260];
+			strcpy(outfile_name, username);
+			strcat(outfile_name, ".csv");
+			write_csv_result(outfile_name, new_url);
+		}
 	} else if (print_all){
 		printf("[-] " RED("%s") ": Not found: %s\n", site, username);
 	}

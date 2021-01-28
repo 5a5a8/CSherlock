@@ -35,7 +35,12 @@ There are four possible error cases - which one we check for depends on the erro
 libpcre2 is used for regular expression matching, while libcurl is used for making web requests.
 
 ## TODO
+
+This list is not exhaustive.
+
 - Write a proper cross-platform makefile
 - Improve false positive rate (i.e. finish implementation of get_request function)
 - Complete documentation
 - Add proper verbose printing for verbose mode
+- Add debug logging
+- Add argument for number of threads

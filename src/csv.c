@@ -99,7 +99,7 @@ void free_csv_memory(char **lines, int free_length){
 
 struct csv_columns parse_csv(char **lines, int index){
 
-	pthread_mutex_lock(&lock);
+	pthread_mutex_lock(&infile_lock);
 
 	struct csv_columns csv_line_parsed;
 
@@ -138,7 +138,7 @@ struct csv_columns parse_csv(char **lines, int index){
 	snprintf(csv_line_parsed.request_head_only, MAX_FIELD_LEN, "%s",
 														csv_array[12]);
 
-	pthread_mutex_unlock(&lock);
+	pthread_mutex_unlock(&infile_lock);
 	return csv_line_parsed;
 }
 
@@ -183,3 +183,19 @@ int make_url(char *url, char *username, char *new_url){
 	/* The new_url parameter now points to the final request url */
 	return 0;
 }
+
+void write_csv_result(char *filename, char *line){
+	pthread_mutex_lock(&outfile_lock);
+
+	FILE *outfile_handle = fopen(filename, "a");
+	if (outfile_handle == NULL){
+		fprintf(stderr, "Failed to open file %s for appending\n", filename);
+		return;
+	}
+
+	fprintf(outfile_handle, "%s\n", line);
+
+	fclose(outfile_handle);
+	pthread_mutex_unlock(&outfile_lock);
+}
+
