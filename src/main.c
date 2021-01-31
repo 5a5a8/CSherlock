@@ -48,16 +48,19 @@ int main(int argc, char *argv[]){
 	struct cmd_args args = argparser(argc, argv);
 
 	/* If -h or -v given, just print the desired output and exit */
-	if (args.help) {
+	if (args.help){
 		print_help(argv[0]);
 		return 0;
-	} else if (args.version) {
+	} else if (args.version){
 		printf("CSherlock v%s\n", VERSION);
 		return 0;
 	}
 
 	if (args.verbose){
 		set_verbose(true);
+	}
+	if (args.debug_log){
+		set_debug(true);
 	}
 
 	/* We now read and parse the csv file containing the list of sites. */
@@ -70,13 +73,18 @@ int main(int argc, char *argv[]){
 	/* read_csv() pulls each line into the lines array with the \n removed. */
 	char **lines = read_csv("sites.csv", &free_length, &num_lines);
 
-	/* Initialise mutex lock on csv parser and csv writer */
+	/* Initialise mutex lock on csv parser, csv writer, debug log. */
 	if (pthread_mutex_init(&infile_lock, NULL)){
 		v_print("Failed to initialise mutex on infile\n");
 	}
 	if (args.write_csv){
 		if (pthread_mutex_init(&outfile_lock, NULL)){
 			v_print("Failed to initialise mutex on outfile\n");
+		}
+	}
+	if (args.debug_log){
+		if (pthread_mutex_init(&debug_file_lock, NULL)){
+			v_print("Failed to initialise mutex on debug log file\n");
 		}
 	}
 

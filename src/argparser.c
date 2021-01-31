@@ -24,6 +24,7 @@ struct cmd_args argparser(int argc, char **argv){
 	args.write_csv = false;
 	args.threads = false;
 	args.num_threads = 32;
+	args.debug_log = false;
 
 	/* Often users will just do --help straight away */
 	/* or run the program with no args.              */
@@ -59,6 +60,9 @@ struct cmd_args argparser(int argc, char **argv){
 				break;
 			case 't':
 				args.threads = true;
+				break;
+			case 'd':
+				args.debug_log = true;
 				break;
 			default:
 				fprintf(stderr, "Usage: %s [-%s] [usernames]\n", argv[0], ARGS);

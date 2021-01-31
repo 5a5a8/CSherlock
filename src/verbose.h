@@ -8,9 +8,16 @@
 #ifndef FILE_VERBOSE_SEEN
 #define FILE_VERBOSE_SEEN
 
+#include <pthread.h>
 #include <stdbool.h>
 
-int v_print(const char * restrict, ...);
-void set_verbose(bool);
+#define D_FILE "debug.log"
+
+pthread_mutex_t debug_file_lock;
+
+void set_verbose(bool setting);
+void set_debug(bool setting);
+int v_print(const char * restrict format, ...);
+int d_log(const char * restrict format, ...);
 
 #endif
