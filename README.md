@@ -20,7 +20,7 @@ After starting, CSherlock will parse the arguments and load the website data fro
 A csv file of any size can be used as more memory is allocated as needed.
 This allows users to replace the built-in csv with their own if they wish.
 
-The array containing each line of the csv file is split between a maximum of 32 threads (POSIX threads are used for multithreading).
+The array containing each line of the csv file is split between a maximum of 256 threads with a default thread number of 32 (POSIX threads are used for multithreading).
 Each thread then parses one of its csv lines at a time and if a regex exists in the data, it will check the username against the regex.
 If the username matches the regex, it passes the site data to the `get_request` function to send the appropriate web request.
 
@@ -43,4 +43,3 @@ This list is not exhaustive.
 - Complete documentation
 - Add proper verbose printing for verbose mode
 - Add debug logging
-- Add argument for number of threads

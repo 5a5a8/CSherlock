@@ -23,7 +23,6 @@
 #include "verbose.h"
 #include "webrequest.h"
 
-#define MAX_THREADS 32
 #define GREEN(string) "\x1b[32m" string "\x1b[0m"
 #define RED(string) "\x1b[31m" string "\x1b[0m"
 
@@ -85,14 +84,14 @@ int main(int argc, char *argv[]){
 	for (i = optind; i < argc; ++i){
 		printf("Checking username %s on...\n\n", argv[i]);
 
-		int divs = num_lines / MAX_THREADS;
-		int remaining_sites = num_lines % MAX_THREADS;
+		int divs = num_lines / args.num_threads;
+		int remaining_sites = num_lines % args.num_threads;
 
 		/* Set up multithreading */
-		pthread_t threads[MAX_THREADS];
+		pthread_t threads[args.num_threads];
 		int prev_i_high = 1;
 		int j;
-		for (j=0; j<MAX_THREADS; ++j){
+		for (j=0; j<args.num_threads; ++j){
 			/* Multithreaded function takes one pointer argument, so we must  */
 			/* pass it a struct of all the arguments. Use malloc to ensure    */
 			/* that other threads will not touch the same data. The pointer   */
@@ -125,7 +124,7 @@ int main(int argc, char *argv[]){
 		}
 
 		int k;
-		for (k=0; k<MAX_THREADS; ++k){
+		for (k=0; k<args.num_threads; ++k){
 			pthread_join(threads[k], NULL);
 		}
 	}

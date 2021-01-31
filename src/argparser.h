@@ -10,7 +10,8 @@
 
 #include <stdbool.h>
 
-#define ARGS "hvVp"
+#define ARGS "hvVpct"
+#define MAX_THREADS 256
 
 struct cmd_args {
 	bool help;
@@ -18,6 +19,8 @@ struct cmd_args {
 	bool print_all;
 	bool verbose;
 	bool write_csv;
+	bool threads;
+	long num_threads;
 };
 
 struct cmd_args argparser(int argc, char **argv);
