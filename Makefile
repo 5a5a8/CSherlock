@@ -1,23 +1,27 @@
-bin/csherlock: obj/main.o obj/verbose.o obj/help.o obj/csv.o obj/argparser.o obj/regexcheck.o obj/webrequest.o
-	gcc -g -Wextra -Wall -o bin/csherlock obj/main.o obj/verbose.o obj/help.o obj/csv.o obj/argparser.o obj/regexcheck.o -L/usr/local/lib -lpcre2-8 obj/webrequest.o -lcurl
+SDIR = src
+IDIR = src
+ODIR = obj
+BDIR = bin
 
-obj/main.o: src/main.c src/verbose.h
-	gcc -g -Wextra -Wall -c src/main.c -o obj/main.o
+CC = gcc
+CFLAGS = -Wextra -Wall -g
 
-obj/verbose.o: src/verbose.c src/verbose.h
-	gcc -g -Wextra -Wall -c src/verbose.c -o obj/verbose.o
+LIBS = -lpcre2-8 -lcurl
 
-obj/help.o: src/help.c src/help.h
-	gcc -g -Wextra -Wall -c src/help.c -o obj/help.o
+_DEPS = argparser.h csv.h help.h regexcheck.h verbose.h webrequest.h
+DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 
-obj/csv.o: src/csv.c src/csv.h
-	gcc -g -Wextra -Wall -c src/csv.c -o obj/csv.o
+_OBJ = main.o argparser.o csv.o help.o regexcheck.o verbose.o webrequest.o
+OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 
-obj/argparser.o: src/argparser.c src/argparser.h
-	gcc -g -Wextra -Wall -c src/argparser.c -o obj/argparser.o
+$(ODIR)/%.o: $(SDIR)/%.c $(DEPS)
+	$(CC) $(CFLAGS) -c -o $@ $<
 
-obj/regexcheck.o: src/regexcheck.c src/regexcheck.h
-	gcc -g -Wextra -Wall -c src/regexcheck.c -o obj/regexcheck.o
+$(BDIR)/csherlock: $(OBJ)
+	$(CC) $(CFLAGS) -o $@ $^ $(LIBS)
 
-obj/webrequest.o: src/webrequest.c src/webrequest.h
-	gcc -g -Wextra -Wall -c src/webrequest.c -o obj/webrequest.o
+.PHONY: clean
+
+clean:
+	rm -rf $(BDIR)/csherlock
+	rm -rf $(OBJ)
