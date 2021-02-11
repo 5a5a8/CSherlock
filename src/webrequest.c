@@ -21,7 +21,7 @@ bool get_request(struct csv_columns site_data){
 	CURLcode result;
 	curl_easy_setopt(curl, CURLOPT_URL, site_data.request_url);
 	curl_easy_setopt(curl, CURLOPT_TIMEOUT, 10L);
-  curl_easy_setopt(curl, CURLOPT_CONNECTTIMEOUT, 3L);
+	curl_easy_setopt(curl, CURLOPT_CONNECTTIMEOUT, 3L);
 
 	/* Holds the response body in case we want to save it. */
 	struct web_response response;
@@ -125,6 +125,7 @@ size_t write_data(void *text, size_t size, size_t nmemb,
 	response->text = realloc(response->text, new_length + 1);
 	if (response->text == NULL){
 		fprintf(stderr, "Memory reallocation failed in write_data\n");
+		d_log(3, "Memory reallocation failed in curl WRITEFUNCTION\n");
 		exit(EXIT_FAILURE);
 	}
 
@@ -142,6 +143,7 @@ void init_string(struct web_response *response){
 	response->text = malloc(response->length + 1);
 	if (response->text == NULL){
 		fprintf(stderr, "Memory allocation failed in init_string\n");
+		d_log(3, "Failed to allocate memory for curl init string\n");
 		exit(EXIT_FAILURE);
 	}
 	response->text[0] = '\0';

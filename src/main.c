@@ -76,15 +76,18 @@ int main(int argc, char *argv[]){
 	/* Initialise mutex lock on csv parser, csv writer, debug log. */
 	if (pthread_mutex_init(&infile_lock, NULL)){
 		v_print("Failed to initialise mutex on infile\n");
+		d_log(3, "Failed to initialise mutex on infile\n");
 	}
 	if (args.write_csv){
 		if (pthread_mutex_init(&outfile_lock, NULL)){
 			v_print("Failed to initialise mutex on outfile\n");
+			d_log(3, "Failed to initialise mutex on outfile\n");
 		}
 	}
 	if (args.debug_log){
 		if (pthread_mutex_init(&debug_file_lock, NULL)){
 			v_print("Failed to initialise mutex on debug log file\n");
+			d_log(3, "Failed to initialise mutex on debug lof file\n");
 		}
 	}
 
@@ -128,6 +131,7 @@ int main(int argc, char *argv[]){
 			rc = pthread_create(&threads[j], NULL, csherlock, t_data);
 			if (rc){
 				v_print("Failed to start thread %d\n", j);
+				d_log(3, "Failed to start thread %d\n", j);
 			}
 		}
 
@@ -188,6 +192,7 @@ void *csherlock(void *args){
 		site_data.request_url = malloc(MAX_FIELD_LEN);
 		if (site_data.request_url == NULL){
 			fprintf(stderr, "Out of memory\n");
+			d_log(3, "Could not malloc space for request URL\n");
 		}
 
 		int fail;
@@ -199,6 +204,7 @@ void *csherlock(void *args){
 		}
 		if (fail){
 			v_print("Invalid url on line %d, thread: %d\n", i, threadnum);
+			d_log(2, "Invalid URL on line %d of input CSV file, skipping...\n");
 			continue;
 		}
 

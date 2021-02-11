@@ -18,6 +18,6 @@ pthread_mutex_t debug_file_lock;
 void set_verbose(bool setting);
 void set_debug(bool setting);
 int v_print(const char * restrict format, ...);
-int d_log(const char * restrict format, ...);
+int d_log(unsigned char level, const char * restrict format, ...);
 
 #endif

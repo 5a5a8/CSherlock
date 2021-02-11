@@ -38,7 +38,7 @@ int v_print(const char * restrict format, ...){
 	return ret;
 }
 
-int d_log(const char * restrict format, ...){
+int d_log(unsigned char level, const char * restrict format, ...){
 	/* This function writes to the debug log. It has effectively the same   */
 	/* usage as printf, but it writes the current date-time-group to a file */
 	/* along with the debug message.                                        */ 
@@ -50,6 +50,19 @@ int d_log(const char * restrict format, ...){
 	pthread_mutex_lock(&debug_file_lock);
 	FILE *fp = fopen(D_FILE, "a");
 
+	char *level_msg = malloc(8 * sizeof(char));
+	switch (level){
+		case 1:
+			strcpy(level_msg, "INFO");
+			break;
+		case 2:
+			strcpy(level_msg, "WARNING");
+			break;
+		case 3:
+			strcpy(level_msg, "ERROR");
+			break;
+	}
+
 	/* Get the current UTC time for logging, and convert to string */
 	time_t raw_time;
 	struct tm * time_info;
@@ -57,15 +70,16 @@ int d_log(const char * restrict format, ...){
 	time_info = gmtime(&raw_time);
 
 	char *dtg = malloc(1024 * sizeof(char));
-	snprintf(dtg, 1024, "[%d-%d-%d %d:%d:%d UTC]: ",
+	snprintf(dtg, 1024, "[%d-%d-%d %d:%d:%d UTC] - %s: ",
 			time_info->tm_year + 1900,
 			time_info->tm_mon + 1,
 			time_info->tm_mday,
 			time_info->tm_hour,
 			time_info->tm_min,
-			time_info->tm_sec);
+			time_info->tm_sec,
+			level_msg);
 
-	/* Now we have [date time group] + format string in dtg. */
+	/* Append the format string from the user caller */
 	strncat(dtg, format, 1024);
 
 	/* Write the line to the file */
@@ -75,6 +89,7 @@ int d_log(const char * restrict format, ...){
 	va_end(args);
 
 	free(dtg);
+	free(level_msg);
 	fclose(fp);
 	pthread_mutex_unlock(&debug_file_lock);
 

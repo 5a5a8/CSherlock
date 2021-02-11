@@ -32,6 +32,7 @@ char **read_csv(char *csv_filename, int *free_length, int *lines_length){
 	if (lines == NULL) {
 		fprintf(stderr, "FATAL: Failed to allocate memory for %s\n",
 				csv_filename);
+		d_log(3, "Failed to allocate memory for input CSV file\n");
 		exit(EXIT_FAILURE);
 	}
 
@@ -39,6 +40,7 @@ char **read_csv(char *csv_filename, int *free_length, int *lines_length){
 	FILE *csv_handle = fopen(csv_filename, "r");
 	if (csv_handle == NULL){
 		fprintf(stderr, "FATAL: Failed to open file %s\n", csv_filename);
+		d_log(3, "Failed to open input file - check file exists\n");
 		exit(EXIT_FAILURE);
 	}
 
@@ -56,6 +58,7 @@ char **read_csv(char *csv_filename, int *free_length, int *lines_length){
 			if (lines == NULL){
 				fprintf(stderr, "FATAL: Failed to allocate memory for %s\n",
 				csv_filename);
+				d_log(3, "Failed to reallocate memory for CSV input lines\n");
 				exit(EXIT_FAILURE);
 			}
 		}
@@ -65,6 +68,7 @@ char **read_csv(char *csv_filename, int *free_length, int *lines_length){
 		if (lines[i] == NULL){
 			fprintf(stderr, "FATAL: Failed to allocate memory for %s\n",
 					csv_filename);
+			d_log(3, "Failed to allocate memory for CSV line %d\n", i+1);
 			exit(EXIT_FAILURE);
 		}
 
@@ -190,6 +194,7 @@ void write_csv_result(char *filename, char *line){
 	FILE *outfile_handle = fopen(filename, "a");
 	if (outfile_handle == NULL){
 		fprintf(stderr, "Failed to open file %s for appending\n", filename);
+		d_log(3, "Failed to open output file for appending\n");
 		return;
 	}
 
