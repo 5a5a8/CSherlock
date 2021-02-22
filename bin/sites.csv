@@ -5,7 +5,7 @@ Site;error_type;error_msg;regex_check;url;url_main;probe_url;username_claimed;us
 About.me;status_code;NONE;NONE;https://about.me/{};https://about.me/;NONE;blue;noonewouldeverusethis7;NONE;NONE;NONE;NONE;
 Academia.edu;status_code;NONE;^[^.]*$;https://independent.academia.edu/{};https://www.academia.edu/;NONE;blue;noonewouldeverusethis7;NONE;NONE;NONE;NONE;
 Alik.cz;status_code;NONE;NONE;https://www.alik.cz/u/{};https://www.alik.cz/;NONE;julian;noonewouldeverusethis;NONE;NONE;NONE;NONE;
-AllTrails;message;User could not be found.;NONE;https://www.alltrails.com/members/{};https://www.alltrails.com/;NONE;blue;noonewouldeverusethis;NONE;NONE;NONE;NONE;
+AllTrails;status_code;NONE;NONE;https://www.alltrails.com/members/{};https://www.alltrails.com/;NONE;blue;noonewouldeverusethis;NONE;NONE;NONE;NONE;
 Anobii;response_url;NONE;NONE;https://www.anobii.com/{}/profile;https://www.anobii.com/;NONE;blue;noonewouldeverusethis7;NONE;NONE;NONE;NONE;
 Apple Discussions;message;The page you tried was not found. You may have used an outdated link or may have typed the address (URL) incorrectly.;NONE;https://discussions.apple.com/profile/{};https://discussions.apple.com;NONE;jason;noonewouldeverusethis;NONE;NONE;NONE;NONE;
 Archive.org;message;cannot find account;NONE;https://archive.org/details/@{};https://archive.org;NONE;blue;noonewould;NONE;NONE;NONE;NONE;
@@ -39,7 +39,7 @@ Chatujme.cz;message;Neexistujicí profil;^[a-zA-Z][a-zA-Z1-9_-]*$;https://profil
 Chess;message;Missing page... somebody made a wrong move.;NONE;https://www.chess.com/member/{};https://www.chess.com/;NONE;blue;noonewouldeverusethis7;NONE;NONE;NONE;NONE;
 Cloob;status_code;NONE;NONE;https://www.cloob.com/name/{};https://www.cloob.com/;NONE;blue;noonewouldeverusethis7;NONE;NONE;NONE;NONE;
 CloudflareCommunity;status_code;NONE;NONE;https://community.cloudflare.com/u/{};https://community.cloudflare.com/;NONE;blue;noonewouldeverusethis;NONE;NONE;NONE;NONE;
-Clozemaster;message;Oh no! Player not found.;NONE;https://www.clozemaster.com/players/{};https://www.clozemaster.com;NONE;green;noonewouldeverusethis7;NONE;NONE;NONE;NONE;
+Clozemaster;status_code;NONE;NONE;https://www.clozemaster.com/players/{};https://www.clozemaster.com;NONE;green;noonewouldeverusethis7;NONE;NONE;NONE;NONE;
 Codecademy;status_code;NONE;NONE;https://www.codecademy.com/profiles/{};https://www.codecademy.com/;NONE;blue;noonewouldeverusethis7;NONE;NONE;NONE;NONE;
 Codechef;response_url;NONE;NONE;https://www.codechef.com/users/{};https://www.codechef.com/;NONE;blue;noonewouldeverusethis7;https://www.codechef.com/;NONE;NONE;NONE;
 Codepen;status_code;NONE;NONE;https://codepen.io/{};https://codepen.io/;NONE;blue;noonewouldeverusethis7;NONE;NONE;NONE;NONE;

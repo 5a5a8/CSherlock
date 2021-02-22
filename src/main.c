@@ -23,6 +23,7 @@
 #include "verbose.h"
 #include "webrequest.h"
 
+/* For coloured terminal output */
 #define GREEN(string) "\x1b[32m" string "\x1b[0m"
 #define RED(string) "\x1b[31m" string "\x1b[0m"
 
@@ -43,7 +44,6 @@ void log_result(bool print_all, bool write_csv, char *site,
 void *csherlock(void *args);
 
 int main(int argc, char *argv[]){
-
 	/* Parse command line arguments */
 	struct cmd_args args = argparser(argc, argv);
 
@@ -131,7 +131,7 @@ int main(int argc, char *argv[]){
 			rc = pthread_create(&threads[j], NULL, csherlock, t_data);
 			if (rc){
 				v_print("Failed to start thread %d\n", j);
-				d_log(3, "Failed to start thread %d\n", j);
+				d_log(2, "Failed to start thread %d\n", j);
 			}
 		}
 
@@ -149,7 +149,6 @@ int main(int argc, char *argv[]){
 }
 
 void *csherlock(void *args){
-
 	/* Get our struct back as individual variables */
 	struct thread_args t_data = *(struct thread_args*) args;
 	bool print_all = t_data.print_all;

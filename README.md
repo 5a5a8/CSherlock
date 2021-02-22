@@ -38,7 +38,5 @@ libpcre2 is used for regular expression matching, while libcurl is used for maki
 
 This list is not exhaustive.
 
-- Improve false positive rate (i.e. finish implementation of get_request function)
+- Add edge cases
 - Complete documentation
-- Add proper verbose printing for verbose mode
-- Add debug logging

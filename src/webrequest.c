@@ -46,12 +46,10 @@ bool get_request(struct csv_columns site_data){
 	/* does not exist on the site: status_code, message, and response_url.    */
 	if (strcmp(site_data.error_type, "status_code") == 0){
 		//TODO add check if text or only header is necessary
-
-		curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
-
+		//curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
 		/* We generally only need to request the headers if error is a code */
-		curl_easy_setopt(curl, CURLOPT_HEADER, 1);
-		curl_easy_setopt(curl, CURLOPT_NOBODY, 1);
+		//curl_easy_setopt(curl, CURLOPT_HEADER, 1);
+		//curl_easy_setopt(curl, CURLOPT_NOBODY, 1);
 
 		result = curl_easy_perform(curl);
 
