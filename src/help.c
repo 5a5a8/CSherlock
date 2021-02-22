@@ -9,7 +9,7 @@
 #include <stdio.h>
 
 void print_help(char *program_name){
-	printf("Usage: %s [-hvVp] [usernames]\n\n", program_name);
+	printf("Usage: %s [-hvVpctd] [usernames]\n\n", program_name);
 
 	printf("CSherlock: C Rewrite of Sherlock: "
 			"Find Usernames Across Social Networks\n");
