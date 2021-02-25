@@ -9,8 +9,10 @@
 CSherlock is an implementation of [Sherlock](https://github.com/sherlock-project/sherlock) written in the C programming language.
 It is an OSINT tool that allows for checking existence of usernames across various social networks.
 
-This implementation is still a work in progress and is not ready for public use.
-There are some minor bugs as well as a much higher false positive rate than the original implementation of Sherlock.
+This implementation has reduced functionality compared to the original, though appears to
+run faster, making it good for basic tests on a large number of users or sites.
+
+Limited testing shows a slightly lower false positive rate than the original implementation.
 
 Note that CSherlock has only been tested on ARM64/MacOS.
 
@@ -34,9 +36,4 @@ There are four possible error cases - which one we check for depends on the erro
 
 libpcre2 is used for regular expression matching, while libcurl is used for making web requests.
 
-## TODO
-
-This list is not exhaustive.
-
-- Add edge cases
-- Complete documentation
+More detailed documentation on compilation and usage is coming soon.

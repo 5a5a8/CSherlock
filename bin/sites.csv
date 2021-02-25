@@ -130,7 +130,7 @@ MyAnimeList;status_code;NONE;NONE;https://myanimelist.net/profile/{};https://mya
 MyMiniFactory;status_code;NONE;NONE;https://www.myminifactory.com/users/{};https://www.myminifactory.com/;NONE;blue;noonewouldeverusethis7;NONE;NONE;NONE;NONE;
 Myspace;status_code;NONE;NONE;https://myspace.com/{};https://myspace.com/;NONE;blue;noonewouldeverusethis7;NONE;NONE;NONE;NONE;
 NICommunityForum;message;The specified member cannot be found;NONE;https://www.native-instruments.com/forum/members?username={};https://www.native-instruments.com/forum/;NONE;blue;noonewouldeverusethis;NONE;NONE;NONE;NONE;
-NameMC (Minecraft.net skins);message;Profiles: 0 results;NONE;https://namemc.com/profile/{};https://namemc.com/;NONE;blue;noonewouldeverusethis7;NONE;NONE;NONE;NONE;
+NameMC (Minecraft.net skins);message;Unless the name is temporarily or permanently blocked;NONE;https://namemc.com/profile/{};https://namemc.com/;NONE;blue;noonewouldeverusethis7;NONE;NONE;NONE;NONE;
 NationStates Nation;message;Was this your nation? It may have ceased to exist due to inactivity, but can rise again!;NONE;https://nationstates.net/nation={};https://nationstates.net;NONE;the_holy_principality_of_saint_mark;noonewould;NONE;NONE;NONE;NONE;
 NationStates Region;message;does not exist.;NONE;https://nationstates.net/region={};https://nationstates.net;NONE;the_west_pacific;noonewould;NONE;NONE;NONE;NONE;
 Naver;status_code;NONE;NONE;https://blog.naver.com/{};https://naver.com;NONE;blue;noonewould;NONE;NONE;NONE;NONE;
@@ -192,7 +192,7 @@ Speedrun.com;message;not found.;NONE;https://speedrun.com/user/{};https://speedr
 Splits.io;status_code;NONE;NONE;https://splits.io/users/{};https://splits.io;NONE;cambosteve;noonewould;NONE;NONE;NONE;NONE;
 Sporcle;status_code;NONE;NONE;https://www.sporcle.com/user/{}/people;https://www.sporcle.com/;NONE;blue;noonewouldeverusethis7;NONE;NONE;NONE;NONE;
 SportsRU;status_code;NONE;NONE;https://www.sports.ru/profile/{}/;https://www.sports.ru/;NONE;blue;noonewouldeverusethis7;NONE;NONE;NONE;NONE;
-Spotify;status_code;NONE;NONE;https://open.spotify.com/user/{};https://open.spotify.com/;NONE;blue;noonewouldeverusethis7;NONE;NONE;NONE;NONE;
+Spotify;message;Something went wrong, please try again later;NONE;https://open.spotify.com/user/{};https://open.spotify.com/;NONE;blue;noonewouldeverusethis7;NONE;NONE;NONE;NONE;
 Star Citizen;status_code;NONE;NONE;https://robertsspaceindustries.com/citizens/{};https://robertsspaceindustries.com/;NONE;blue;noonewouldeverusethis7;NONE;NONE;NONE;NONE;
 Steam;message;The specified profile could not be found;NONE;https://steamcommunity.com/id/{};https://steamcommunity.com/;NONE;blue;noonewouldeverusethis7;NONE;NONE;NONE;NONE;
 SteamGroup;message;No group could be retrieved for the given URL;NONE;https://steamcommunity.com/groups/{};https://steamcommunity.com/;NONE;blue;noonewouldeverusethis7;NONE;NONE;NONE;NONE;
@@ -200,7 +200,6 @@ Steamid;message;<div class="alert alert-warning">Profile not found</div>;NONE;ht
 Strava;message;Strava | Run and Cycling Tracking on the Social Network for Athletes;NONE;https://www.strava.com/athletes/{};https://www.strava.com/;NONE;blue;noonewouldeverusethis7;NONE;NONE;NONE;NONE;
 SublimeForum;status_code;NONE;NONE;https://forum.sublimetext.com/u/{};https://forum.sublimetext.com/;NONE;blue;noonewouldeverusethis;NONE;NONE;NONE;NONE;
 TETR.IO;message;No such user!;NONE;https://ch.tetr.io/u/{};https://tetr.io;https://ch.tetr.io/api/users/{};osk;noonewouldeverusethis7;NONE;NONE;NONE;NONE;
-Telegram;message;<meta property="og:description" content="">;^[a-zA-Z0-9_]{5,32}$;https://t.me/{};https://t.me/;NONE;roopeshvs;noonewouldeverusethis7;NONE;NONE;NONE;NONE;
 Tellonym.me;status_code;NONE;NONE;https://tellonym.me/{};https://tellonym.me/;NONE;blue;noonewouldeverusethis7;NONE;NONE;NONE;NONE;
 TikTok;status_code;NONE;NONE;https://tiktok.com/@{};https://tiktok.com/;NONE;red;noonewouldeverusethis7;NONE;NONE;NONE;NONE;
 TrackmaniaLadder;message;player unknown or invalid;NONE;http://en.tm-ladder.com/{}_rech.php;http://en.tm-ladder.com/index.php;NONE;blue;noonewouldeverusethis;NONE;NONE;NONE;NONE;
@@ -212,7 +211,6 @@ Trello;message;model not found;NONE;https://trello.com/{};https://trello.com/;ht
 TripAdvisor;message;This page is on vacation…;NONE;https://tripadvisor.com/members/{};https://tripadvisor.com/;NONE;blue;noonewouldeverusethis7;NONE;NONE;NONE;NONE;
 TryHackMe;status_code;NONE;NONE;https://tryhackme.com/p/{};https://tryhackme.com/;NONE;ashu;noonewouldeverusethis7;NONE;NONE;NONE;NONE;
 Twitch;status_code;NONE;NONE;https://www.twitch.tv/{};https://www.twitch.tv/;https://m.twitch.tv/{};jenny;noonewouldeverusethis7;NONE;NONE;NONE;NONE;
-Twitter;status_code;NONE;NONE;https://mobile.twitter.com/{};https://mobile.twitter.com/;NONE;blue;noonewouldeverusethis7;NONE;NONE;NONE;NONE;
 Typeracer;message;Profile Not Found;NONE;https://data.typeracer.com/pit/profile?user={};https://typeracer.com;NONE;blue;noonewouldeverusethis7;NONE;NONE;NONE;NONE;
 Ultimate-Guitar;status_code;NONE;NONE;https://ultimate-guitar.com/u/{};https://ultimate-guitar.com/;NONE;blue;noonewouldeverusethis7;NONE;NONE;NONE;NONE;
 Unsplash;status_code;NONE;NONE;https://unsplash.com/@{};https://unsplash.com/;NONE;jenny;noonewouldeverusethis7;NONE;NONE;NONE;NONE;
@@ -265,12 +263,11 @@ habr;status_code;NONE;NONE;https://habr.com/ru/users/{};https://habr.com/;NONE;b
 hackster;status_code;NONE;NONE;https://www.hackster.io/{};https://www.hackster.io;NONE;blue;noonewouldeverusethis7;NONE;NONE;NONE;NONE;
 hunting;message;Указанный пользователь не найден. Пожалуйста, введите другое имя.;NONE;https://www.hunting.ru/forum/members/?username={};https://www.hunting.ru/forum/;NONE;red;noonewouldeverusethis7;NONE;NONE;NONE;NONE;
 iMGSRC.RU;response_url;NONE;NONE;https://imgsrc.ru/main/user.php?user={};https://imgsrc.ru/;NONE;blue;noonewouldeverusethis7;https://imgsrc.ru/;NONE;NONE;NONE;
-igromania;message;Пользователь не зарегистрирован и не имеет профиля для просмотра.;NONE;http://forum.igromania.ru/member.php?username={};http://forum.igromania.ru/;NONE;blue;noonewouldeverusethis7;NONE;NONE;NONE;NONE;
 interpals;message;The requested user does not exist or is inactive;NONE;https://www.interpals.net/{};https://www.interpals.net/;NONE;blue;noneownsthisusername;NONE;NONE;NONE;NONE;
 irecommend;status_code;NONE;NONE;https://irecommend.ru/users/{};https://irecommend.ru/;NONE;blue;noonewouldeverusethis7;NONE;NONE;NONE;NONE;
 jbzd.com.pl;status_code;NONE;NONE;https://jbzd.com.pl/uzytkownik/{};https://jbzd.com.pl/;NONE;blue;noonewouldeverusethis7;NONE;NONE;NONE;NONE;
 jeuxvideo;message;Vous êtes;NONE;http://www.jeuxvideo.com/profil/{}?mode=infos;http://www.jeuxvideo.com;NONE;adam;noonewouldeverusethis7;NONE;NONE;NONE;NONE;
-kofi;response_url;NONE;NONE;https://ko-fi.com/{};https://ko-fi.com;NONE;yeahkenny;noonewouldeverusethis77777;https://ko-fi.com/art?=redirect;NONE;NONE;NONE;
+kofi;status_code;NONE;NONE;https://ko-fi.com/{};https://ko-fi.com;NONE;yeahkenny;noonewouldeverusethis77777;https://ko-fi.com/art?=redirect;NONE;NONE;NONE;
 kwork;status_code;NONE;NONE;https://kwork.ru/user/{};https://www.kwork.ru/;NONE;blue;noonewouldeverusethis7;NONE;NONE;NONE;NONE;
 labpentestit;response_url;NONE;NONE;https://lab.pentestit.ru/profile/{};https://lab.pentestit.ru/;NONE;CSV;noonewouldeverusethis7;https://lab.pentestit.ru/{};NONE;NONE;NONE;
 last.fm;status_code;NONE;NONE;https://last.fm/user/{};https://last.fm/;NONE;blue;noonewouldeverusethis7;NONE;NONE;NONE;NONE;
@@ -288,7 +285,6 @@ nairaland.com;status_code;NONE;NONE;https://www.nairaland.com/{};https://www.nai
 nnRU;status_code;NONE;NONE;https://{}.www.nn.ru/;https://https://www.nn.ru/;NONE;blue;noonewouldeverusethis7;NONE;NONE;NONE;NONE;
 note;status_code;NONE;NONE;https://note.com/{};https://note.com/;NONE;blue;noonewouldeverusethis7;NONE;NONE;NONE;NONE;
 npm;status_code;NONE;NONE;https://www.npmjs.com/~{};https://www.npmjs.com/;NONE;kennethsweezy;noonewould;NONE;NONE;NONE;NONE;
-opennet;message;Имя участника не найдено;^[^-]*$;https://www.opennet.ru/~{};https://www.opennet.ru/;NONE;anonismus;noneownsthisusername;NONE;NONE;NONE;NONE;
 osu!;status_code;NONE;NONE;https://osu.ppy.sh/users/{};https://osu.ppy.sh/;NONE;blue;noonewouldeverusethis7;NONE;NONE;NONE;NONE;
 phpRU;message;Указанный пользователь не найден. Пожалуйста, введите другое имя.;NONE;https://php.ru/forum/members/?username={};https://php.ru/forum/;NONE;apple;noonewouldeverusethis7;NONE;NONE;NONE;NONE;
 pikabu;status_code;NONE;NONE;https://pikabu.ru/@{};https://pikabu.ru/;NONE;blue;noonewouldeverusethis7;NONE;NONE;NONE;NONE;
