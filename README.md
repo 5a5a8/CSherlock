@@ -17,7 +17,7 @@ For reference the Python version takes over a minute for a similar test.
 
 Limited testing shows a slightly lower false positive rate than the original implementation.
 
-Note that CSherlock has only been tested on ARM64/MacOS.
+CSherlock has been tested on ARM64/MacOS and x86_64 linux.
 
 ## Description
 
@@ -39,4 +39,31 @@ There are four possible error cases - which one we check for depends on the erro
 
 libpcre2 is used for regular expression matching, while libcurl is used for making web requests.
 
-More detailed documentation on compilation and usage is coming soon.
+## Usage
+
+First install libcurl and libpcre2 if they are not already installed.
+
+On an Ubuntu machine, this would be:
+```
+sudo apt install libcurl4-openssl-dev
+sudo apt install libpcre2-8-0
+```
+
+Clone this repository:
+```
+git clone https://github.com/5a5a8/CSherlock.git
+```
+
+Change to the directory and build CSherlock:
+```
+cd CSherlock
+make
+```
+
+A `csherlock` executable will be created in the `bin` folder.
+Simply run it with:
+```
+./csherlock --help
+```
+
+To get started checking a username, simply use `./csherlock [username]`.
