@@ -12,6 +12,9 @@ It is an OSINT tool that allows for checking existence of usernames across vario
 This implementation has reduced functionality compared to the original, though appears to
 run faster, making it good for basic tests on a large number of users or sites.
 
+Current execution time on my machine is 15-20 seconds for one username checked on 297 sites.
+For reference the Python version takes over a minute for a similar test.
+
 Limited testing shows a slightly lower false positive rate than the original implementation.
 
 Note that CSherlock has only been tested on ARM64/MacOS.

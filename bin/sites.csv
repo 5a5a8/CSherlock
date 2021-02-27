@@ -154,7 +154,6 @@ Pinkbike;status_code;NONE;NONE;https://www.pinkbike.com/u/{}/;https://www.pinkbi
 Pinterest;status_code;NONE;NONE;https://www.pinterest.com/{}/;https://www.pinterest.com/;NONE;blue;noonewouldeverusethis7;NONE;NONE;NONE;NONE;
 PlayStore;status_code;NONE;NONE;https://play.google.com/store/apps/developer?id={};https://play.google.com/store;NONE;Facebook;noonewouldeverusethis7;NONE;NONE;NONE;NONE;
 Pling;message;Resource not found;NONE;https://www.pling.com/u/{}/;https://www.pling.com/;NONE;blue;noonewouldeverusethis;NONE;NONE;NONE;NONE;
-Plug.DJ;status_code;NONE;NONE;https://plug.dj/@/{};https://plug.dj/;NONE;plug-dj-rock;noonewouldeverusethis7;NONE;NONE;NONE;NONE;
 Pokemon Showdown;status_code;NONE;NONE;https://pokemonshowdown.com/users/{};https://pokemonshowdown.com;NONE;blue;noonewouldeverusethis7;NONE;NONE;NONE;NONE;
 Polarsteps;status_code;NONE;NONE;https://polarsteps.com/{};https://polarsteps.com/;https://api.polarsteps.com/users/byusername/{};james;noonewouldeverusethis7;NONE;NONE;NONE;NONE;
 Polygon;status_code;NONE;NONE;https://www.polygon.com/users/{};https://www.polygon.com/;NONE;swiftstickler;noonewouldeverusethis7;NONE;NONE;NONE;NONE;
